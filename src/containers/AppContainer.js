@@ -17,6 +17,11 @@ class AppContainer extends Component {
                 this.setState({
                     message: json.message,
                 });
+            })
+            .catch(err => {
+                this.setState({
+                    message: err.message,
+                });
             });
     }
 
