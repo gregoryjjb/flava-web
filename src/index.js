@@ -1,8 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import App from "./components/App";
 import AppContainer from "./containers/AppContainer";
 import registerServiceWorker from "./registerServiceWorker";
+import theme from "./theme";
 
-ReactDOM.render(<AppContainer />, document.getElementById("root"));
+ReactDOM.render(
+    <MuiThemeProvider theme={theme}>
+        <AppContainer />
+    </MuiThemeProvider>,
+    document.getElementById("root")
+);
 registerServiceWorker();
