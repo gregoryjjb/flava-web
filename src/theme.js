@@ -1,7 +1,7 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const defaultHeader = {
-    fontFamily: '"Times New Roman", serif',
+    fontFamily: '"Poor Story", cursive',
 };
 
 export default createMuiTheme({
@@ -13,6 +13,9 @@ export default createMuiTheme({
             ...defaultHeader,
         },
         display3: {
+            ...defaultHeader,
+        },
+        display2: {
             ...defaultHeader,
         },
     },
