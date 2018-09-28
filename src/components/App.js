@@ -1,6 +1,7 @@
 import React from "react";
 
 import { withStyles, Typography } from "@material-ui/core";
+import Welcome from "./Welcome";
 
 const styles = theme => ({
     root: {
@@ -10,19 +11,19 @@ const styles = theme => ({
         bottom: 0,
         left: 0,
         right: 0,
-        padding: 16,
+        padding: 0,
     },
     text: {
         color: theme.palette.getContrastText(theme.palette.primary.light),
     },
+    typography: {
+        fontFamily: "Poor Story",
+    },
 });
 
 const App = ({ classes, message }) => (
-    <div className={classes.root}>
-        <Typography variant="display2" gutterBottom className={classes.text}>
-            Welcome to Flavatown
-        </Typography>
-        <Typography variant="title">Hello there... {message}</Typography>
+    <div>
+        <Welcome />
     </div>
 );
 
