@@ -1,22 +1,18 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const defaultHeader = {
-    fontFamily: '"Poor Story", cursive',
-};
-
 export default createMuiTheme({
     palette: {
-        type: "light",
-    },
-    typography: {
-        display4: {
-            ...defaultHeader,
+        primary: {
+            main: "#f57c00",
+            light: "#ffad42",
+            dark: "#bb4d00",
+            contrastText: "#000",
         },
-        display3: {
-            ...defaultHeader,
-        },
-        display2: {
-            ...defaultHeader,
+        secondary: {
+            main: "#ff80ab",
+            light: "#ffb2dd",
+            dark: "#c94f7c",
+            contrastText: "#fff",
         },
     },
 });
