@@ -15,6 +15,9 @@ const styles = theme => ({
         background: theme.palette.primary.main,
         flexGrow: 1,
     },
+    root2: {
+        background: "#263238",
+    },
     container: {
         marginLeft: "20%",
         marginRight: "20%",
@@ -48,6 +51,12 @@ const styles = theme => ({
         marginLeft: "20%",
         marginRight: "20%",
     },
+    pinkMessage: {
+        color: "#FCE4EC",
+        textAlign: "center",
+        marginLeft: "20%",
+        marginRight: "20%",
+    },
     graph: {
         width: "30%",
         margin: "16px",
@@ -56,6 +65,15 @@ const styles = theme => ({
         height: "auto",
         maxHeight: "100%",
         maxWidth: "100%",
+    },
+    getStarted: {
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+        borderRadius: 3,
+        border: 0,
+        color: "white",
+        height: 48,
+        padding: "0 30px",
+        boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     },
 });
 
@@ -76,24 +94,20 @@ const Welcome = ({ classes }) => (
                 <Button color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
-
         <br />
-
         <div className={classes.header}>
             {/* <img src={logo} alt="" className={classes.logo} /> */}
             <Typography variant="display4">Welcome to Flava</Typography>
         </div>
-
         <br />
-
         <div>
             <img src={manRunning} alt="" className={classes.sectionImg} />
         </div>
         <br />
         <Typography variant="display1" className={classes.message}>
-            Flava is a machine learning application that creates a detailed
-            training plan based on your current running abilities and your
-            goals.
+            Flava is an application that uses machine learning to create a
+            detailed training plan based on your current running abilities and
+            your goals.
         </Typography>
         <br />
         <div className={classes.container}>
@@ -105,6 +119,16 @@ const Welcome = ({ classes }) => (
             </div>
             <div className={classes.graph}>
                 <img src={graphImg} alt="" className={classes.img} />
+            </div>
+        </div>
+        s{/* Bottom Half (Dark BG) */}
+        <div className={classes.root2}>
+            <Typography variant="display1" className={classes.pinkMessage}>
+                Flava will show statistics on your trajectory toward your goal.
+            </Typography>
+            <br />
+            <div className={classes.header}>
+                <Button className={classes.getStarted}>Get started</Button>
             </div>
         </div>
     </div>
