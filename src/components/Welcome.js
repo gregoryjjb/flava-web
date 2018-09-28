@@ -17,6 +17,7 @@ const styles = theme => ({
     },
     root2: {
         background: "#263238",
+        padding: "24px 0",
     },
     container: {
         marginLeft: "20%",
@@ -94,22 +95,20 @@ const Welcome = ({ classes }) => (
                 <Button color="inherit">Login</Button>
             </Toolbar>
         </AppBar>
-        <br />
         <div className={classes.header}>
             {/* <img src={logo} alt="" className={classes.logo} /> */}
-            <Typography variant="display4">Welcome to Flava</Typography>
+            <Typography variant="display4" gutterBottom>
+                Welcome to Flava
+            </Typography>
         </div>
-        <br />
-        <div>
+        <div style={{ textAlign: "center" }}>
             <img src={manRunning} alt="" className={classes.sectionImg} />
         </div>
-        <br />
-        <Typography variant="display1" className={classes.message}>
+        <Typography variant="display1" className={classes.message} gutterBottom>
             Flava is an application that uses machine learning to create a
             detailed training plan based on your current running abilities and
             your goals.
         </Typography>
-        <br />
         <div className={classes.container}>
             <div className={classes.graph}>
                 <img src={graphImg} alt="" className={classes.img} />
@@ -121,12 +120,15 @@ const Welcome = ({ classes }) => (
                 <img src={graphImg} alt="" className={classes.img} />
             </div>
         </div>
-        s{/* Bottom Half (Dark BG) */}
+        {/* Bottom Half (Dark BG) */}
         <div className={classes.root2}>
-            <Typography variant="display1" className={classes.pinkMessage}>
+            <Typography
+                variant="display1"
+                className={classes.pinkMessage}
+                gutterBottom
+            >
                 Flava will show statistics on your trajectory toward your goal.
             </Typography>
-            <br />
             <div className={classes.header}>
                 <Button className={classes.getStarted}>Get started</Button>
             </div>
