@@ -3,12 +3,18 @@ import React from "react";
 import logo from "../img/logo-transparent.png";
 import graphImg from "../img/graph.png";
 import manRunning from "../img/running-man-sunset.jpg";
-import { withStyles, Typography } from "@material-ui/core";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/Button";
+
+import {
+    withStyles,
+    Typography,
+    AppBar,
+    Toolbar,
+    Button,
+    IconButton,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+
+import LoginButtonContainer from "../containers/LoginButtonContainer";
 
 const styles = theme => ({
     root: {
@@ -92,7 +98,8 @@ const Welcome = ({ classes }) => (
                 >
                     Flava
                 </Typography>
-                <Button color="inherit">Login</Button>
+                {/*<Button color="inherit">Login</Button>*/}
+                <LoginButtonContainer />
             </Toolbar>
         </AppBar>
         <div className={classes.header}>
