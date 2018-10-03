@@ -22,7 +22,7 @@ const LoginButton = ({ classes, clientId, onSuccess, onFailure }) => (
         onSuccess={onSuccess}
         onFailure={onFailure}
     >
-        <img src={googleImg} atl="Sign in with Google" />
+        <img src={googleImg} alt="Sign in with Google" />
     </GoogleLogin>
 );
 
