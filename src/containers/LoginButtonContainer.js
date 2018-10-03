@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Cookies from "js-cookie";
+import { CircularProgress } from "@material-ui/core";
 
 import LoginButton from "../components/LoginButton";
 
@@ -13,10 +15,69 @@ class LoginButtonContainer extends Component {
         } else {
             console.log("Client ID:", googleClientId);
         }
+
+        this.state = {
+            sessionKey: "",
+            isFetching: false,
+        };
+    }
+
+    componentDidMount() {
+        const key = Cookies.get("sessionKey");
+
+        if (key) {
+            this.setState({ isFetching: true });
+
+            fetch("/api/account/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                body: JSON.stringify({ sessionKey: key }),
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (!res.user) {
+                        this.setState({ sessionKey: "" });
+                        Cookies.remove("sessionKey");
+                        console.log("Not logged in");
+                    } else {
+                        this.setState({ sessionKey: key });
+                    }
+
+                    this.setState({ isFetching: false });
+                })
+                .catch(e => {
+                    this.setState({ isFetching: false });
+                });
+        }
     }
 
     onSuccess = response => {
-        console.log("Token ID:", response.tokenId);
+        const token = response.tokenId;
+        console.log("Token ID:", token);
+
+        const body = { token };
+
+        this.setState({ isFetching: true });
+
+        fetch("/api/account/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify(body),
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log("NEW KEY IS", res.sessionKey);
+                Cookies.set("sessionKey", res.sessionKey);
+                this.setState({
+                    sessionKey: res.sessionKey,
+                    isFetching: false,
+                });
+            })
+            .catch(err => {
+                this.setState({
+                    isFetching: false,
+                });
+            });
     };
 
     onFailure = response => {
@@ -24,13 +85,20 @@ class LoginButtonContainer extends Component {
     };
 
     render() {
-        return (
-            <LoginButton
-                clientId={googleClientId}
-                onSuccess={this.onSuccess}
-                onFailure={this.onFailure}
-            />
-        );
+        if (this.state.isFetching) {
+            return <CircularProgress color="secondary" />;
+        }
+        if (!this.state.sessionKey) {
+            return (
+                <LoginButton
+                    clientId={googleClientId}
+                    onSuccess={this.onSuccess}
+                    onFailure={this.onFailure}
+                />
+            );
+        } else {
+            return <p>You are signed in</p>;
+        }
     }
 }
 
