@@ -1,6 +1,5 @@
 import React from "react";
 
-import logo from "../img/logo-transparent.png";
 import graphImg from "../img/graph.png";
 import manRunning from "../img/running-man-sunset.jpg";
 

@@ -49,6 +49,23 @@ class LoginButtonContainer extends Component {
         console.log(response);
     };
 
+    onLogoutClick = () => {
+        const { store } = this.props;
+
+        store.set("session.fetching")(true);
+
+        api.logout()
+            .then(res => {
+                console.log("Logged out");
+                store.set("session.key")("");
+                Cookies.remove("sessionKey");
+            })
+            .catch(e => console.error(e))
+            .then(() => {
+                store.set("session.fetching")(false);
+            });
+    };
+
     render() {
         const store = this.props.store;
 
@@ -64,7 +81,11 @@ class LoginButtonContainer extends Component {
                 />
             );
         } else {
-            return <Button variant="outlined">Log out</Button>;
+            return (
+                <Button variant="outlined" onClick={this.onLogoutClick}>
+                    Log out
+                </Button>
+            );
         }
     }
 }
