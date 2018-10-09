@@ -35,9 +35,11 @@ class LoginButtonContainer extends Component {
         api.login(token)
             .then(res => {
                 let s = res.data.sessionKey;
+                let u = res.data.user;
                 console.log("Starting new session");
                 Cookies.set("sessionKey", s, { expires: 365 });
                 store.set("session.key")(s);
+                store.set("user")(u);
             })
             .catch(err => console.error(err))
             .then(() => {
@@ -58,6 +60,7 @@ class LoginButtonContainer extends Component {
             .then(res => {
                 console.log("Logged out");
                 store.set("session.key")("");
+                store.set("user")(null);
                 Cookies.remove("sessionKey");
             })
             .catch(e => console.error(e))

@@ -29,10 +29,12 @@ class AppContainer extends Component {
                     if (!data.user) {
                         console.log("Found key, but was invalid");
                         store.set("session.key")("");
+                        store.set("user")(null);
                         Cookies.remove("sessionKey");
                     } else {
                         console.log("Resuming old session");
-                        store.set("session.key")(data.sessionKey);
+                        store.set("session.key")(key);
+                        store.set("user")(data.user);
                     }
                 })
                 .catch(err => {})
