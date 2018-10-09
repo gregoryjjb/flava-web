@@ -17,10 +17,6 @@ import LoginButtonContainer from "../containers/LoginButtonContainer";
 
 const styles = theme => ({
     root: {
-        background: theme.palette.primary.main,
-        flexGrow: 1,
-    },
-    root2: {
         background: "#263238",
         padding: "24px 0",
     },
@@ -30,20 +26,21 @@ const styles = theme => ({
         display: "flex",
         flexDirection: "row",
     },
-    logo: {
-        height: "15%",
-        width: "15%",
-        float: "left",
-    },
     header: {
         height: "20%",
         textAlign: "center",
     },
-    sectionImg: {
-        height: "auto",
-        maxHeight: "100%",
-        maxWidth: "100%",
-        opacity: 0.7,
+    bannerImg: {
+        backgroundImage: `url(${manRunning})`,
+        backgroundSize: "cover",
+        backgroundPosition: "top",
+        height: 450,
+        display: "flex",
+        flexDirection: "column-reverse",
+    },
+    bannerText: {
+        background: "rgba(0,0,0,0.6)",
+        padding: 16,
     },
     grow: {
         flexGrow: 1,
@@ -103,14 +100,16 @@ const Welcome = ({ classes }) => (
                 <LoginButtonContainer />
             </Toolbar>
         </AppBar>
-        <div className={classes.header}>
-            {/* <img src={logo} alt="" className={classes.logo} /> */}
-            <Typography variant="display4" gutterBottom>
-                Welcome to Flava
-            </Typography>
-        </div>
-        <div style={{ textAlign: "center" }}>
-            <img src={manRunning} alt="" className={classes.sectionImg} />
+        <div className={classes.bannerImg}>
+            <div className={classes.bannerText}>
+                <Typography
+                    variant="display4"
+                    style={{ color: "white" }}
+                    align="center"
+                >
+                    Welcome to Flava
+                </Typography>
+            </div>
         </div>
         <Typography variant="display1" className={classes.message} gutterBottom>
             Flava is an application that uses machine learning to create a
@@ -129,7 +128,7 @@ const Welcome = ({ classes }) => (
             </div>
         </div>
         {/* Bottom Half (Dark BG) */}
-        <div className={classes.root2}>
+        <div className={classes.root}>
             <Typography
                 variant="display1"
                 className={classes.pinkMessage}
