@@ -68,7 +68,7 @@ const styles = theme => ({
     },
 });
 
-const Welcome = ({ classes }) => (
+const WelcomePage = ({ classes }) => (
     <div>
         <AppBar position="sticky">
             <Toolbar>
@@ -132,4 +132,4 @@ const Welcome = ({ classes }) => (
     </div>
 );
 
-export default withStyles(styles)(Welcome);
+export default withStyles(styles)(WelcomePage);

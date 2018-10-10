@@ -1,7 +1,7 @@
 import React from "react";
 
 import { withStyles, Typography } from "@material-ui/core";
-import Welcome from "./Welcome";
+import WelcomePage from "../pages/WelcomePage";
 
 const styles = theme => ({
     root: {
@@ -23,7 +23,7 @@ const styles = theme => ({
 
 const App = ({ classes, message }) => (
     <div>
-        <Welcome />
+        <WelcomePage />
     </div>
 );
 
