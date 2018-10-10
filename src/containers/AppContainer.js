@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import Cookies from "js-cookie";
+
+import api from "../utils/api";
+
+import { withStore } from "../utils/store";
 import App from "../components/App";
 
 class AppContainer extends Component {
@@ -11,18 +16,32 @@ class AppContainer extends Component {
     }
 
     componentDidMount() {
-        fetch("/api/hellothere")
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    message: json.message,
+        const key = Cookies.get("sessionKey");
+
+        if (key) {
+            const store = this.props.store;
+
+            store.set("session.fetching")(true);
+
+            api.resumeSession(key)
+                .then(res => {
+                    let { data } = res;
+                    if (!data.user) {
+                        console.log("Found key, but was invalid");
+                        store.set("session.key")("");
+                        store.set("user")(null);
+                        Cookies.remove("sessionKey");
+                    } else {
+                        console.log("Resuming old session");
+                        store.set("session.key")(key);
+                        store.set("user")(data.user);
+                    }
+                })
+                .catch(err => {})
+                .then(() => {
+                    store.set("session.fetching")(false);
                 });
-            })
-            .catch(err => {
-                this.setState({
-                    message: err.message,
-                });
-            });
+        }
     }
 
     render() {
@@ -30,4 +49,4 @@ class AppContainer extends Component {
     }
 }
 
-export default AppContainer;
+export default withStore(AppContainer);

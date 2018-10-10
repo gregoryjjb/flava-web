@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
-import { CircularProgress } from "@material-ui/core";
+
+import { Button, CircularProgress } from "@material-ui/core";
+
+import { withStore } from "../utils/store";
+import api from "../utils/api";
 
 import LoginButton from "../components/LoginButton";
 
@@ -22,61 +26,24 @@ class LoginButtonContainer extends Component {
         };
     }
 
-    componentDidMount() {
-        const key = Cookies.get("sessionKey");
-
-        if (key) {
-            this.setState({ isFetching: true });
-
-            fetch("/api/account/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json; charset=utf-8" },
-                body: JSON.stringify({ sessionKey: key }),
-            })
-                .then(res => res.json())
-                .then(res => {
-                    if (!res.user) {
-                        this.setState({ sessionKey: "" });
-                        Cookies.remove("sessionKey");
-                        console.log("Not logged in");
-                    } else {
-                        this.setState({ sessionKey: key });
-                    }
-
-                    this.setState({ isFetching: false });
-                })
-                .catch(e => {
-                    this.setState({ isFetching: false });
-                });
-        }
-    }
-
     onSuccess = response => {
         const token = response.tokenId;
-        console.log("Token ID:", token);
+        const store = this.props.store;
 
-        const body = { token };
+        store.set("session.fetching")(true);
 
-        this.setState({ isFetching: true });
-
-        fetch("/api/account/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json; charset=utf-8" },
-            body: JSON.stringify(body),
-        })
-            .then(res => res.json())
+        api.login(token)
             .then(res => {
-                console.log("NEW KEY IS", res.sessionKey);
-                Cookies.set("sessionKey", res.sessionKey);
-                this.setState({
-                    sessionKey: res.sessionKey,
-                    isFetching: false,
-                });
+                let s = res.data.sessionKey;
+                let u = res.data.user;
+                console.log("Starting new session");
+                Cookies.set("sessionKey", s, { expires: 365 });
+                store.set("session.key")(s);
+                store.set("user")(u);
             })
-            .catch(err => {
-                this.setState({
-                    isFetching: false,
-                });
+            .catch(err => console.error(err))
+            .then(() => {
+                store.set("session.fetching")(false);
             });
     };
 
@@ -84,11 +51,31 @@ class LoginButtonContainer extends Component {
         console.log(response);
     };
 
+    onLogoutClick = () => {
+        const { store } = this.props;
+
+        store.set("session.fetching")(true);
+
+        api.logout()
+            .then(res => {
+                console.log("Logged out");
+                store.set("session.key")("");
+                store.set("user")(null);
+                Cookies.remove("sessionKey");
+            })
+            .catch(e => console.error(e))
+            .then(() => {
+                store.set("session.fetching")(false);
+            });
+    };
+
     render() {
-        if (this.state.isFetching) {
+        const store = this.props.store;
+
+        if (store.get("session.fetching")) {
             return <CircularProgress color="secondary" />;
         }
-        if (!this.state.sessionKey) {
+        if (store.get("session.key") === "") {
             return (
                 <LoginButton
                     clientId={googleClientId}
@@ -97,9 +84,13 @@ class LoginButtonContainer extends Component {
                 />
             );
         } else {
-            return <p>You are signed in</p>;
+            return (
+                <Button variant="outlined" onClick={this.onLogoutClick}>
+                    Log out
+                </Button>
+            );
         }
     }
 }
 
-export default LoginButtonContainer;
+export default withStore(LoginButtonContainer);
