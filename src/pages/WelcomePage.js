@@ -3,27 +3,11 @@ import React from "react";
 import graphImg from "../img/graph.png";
 import manRunning from "../img/running-man-sunset.jpg";
 
-import {
-    withStyles,
-    Typography,
-    AppBar,
-    Toolbar,
-    Button,
-    IconButton,
-} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import { withStyles, Typography, Button } from "@material-ui/core";
 
 import Gutters from "../components/Gutters";
-import LoginButtonContainer from "../containers/LoginButtonContainer";
 
 const styles = theme => ({
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
-    grow: {
-        flexGrow: 1,
-    },
     bannerImg: {
         backgroundImage: `url(${manRunning})`,
         backgroundSize: "cover",
@@ -70,22 +54,6 @@ const styles = theme => ({
 
 const WelcomePage = ({ classes }) => (
     <div>
-        <AppBar position="sticky">
-            <Toolbar>
-                <IconButton className={classes.menuButton} aria-label="Menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography
-                    variant="title"
-                    color="inherit"
-                    className={classes.grow}
-                >
-                    Flava
-                </Typography>
-                {/*<Button color="inherit">Login</Button>*/}
-                <LoginButtonContainer />
-            </Toolbar>
-        </AppBar>
         <div className={classes.bannerImg}>
             <div className={classes.bannerText}>
                 <Typography
