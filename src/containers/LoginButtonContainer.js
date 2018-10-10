@@ -85,7 +85,7 @@ class LoginButtonContainer extends Component {
             );
         } else {
             return (
-                <Button variant="outlined" onClick={this.onLogoutClick}>
+                <Button variant="raised" onClick={this.onLogoutClick}>
                     Log out
                 </Button>
             );
