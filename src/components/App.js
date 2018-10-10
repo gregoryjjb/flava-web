@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { withStyles } from "@material-ui/core";
 
 import Header from "./Header";
@@ -11,13 +11,15 @@ const styles = theme => ({
 });
 
 const App = ({ classes, message }) => (
-    <div>
-        <Header />
-        <Switch>
-            <Route exact path="/" component={WelcomePage} />
-            <Route path="/dashboard" component={DashboardPage} />
-        </Switch>
-    </div>
+    <BrowserRouter>
+        <div>
+            <Header />
+            <Switch>
+                <Route exact path="/" component={WelcomePage} />
+                <Route exact path="/dashboard" component={DashboardPage} />
+            </Switch>
+        </div>
+    </BrowserRouter>
 );
 
 export default withStyles(styles)(App);

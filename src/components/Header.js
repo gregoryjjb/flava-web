@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
+import UnstyledLink from "./UnstyledLink";
 import LoginButtonContainer from "../containers/LoginButtonContainer";
 
 const styles = theme => ({
@@ -26,13 +27,15 @@ const name = ({ classes }) => (
             <IconButton className={classes.menuButton} aria-label="Menu">
                 <MenuIcon />
             </IconButton>
+
             <Typography
                 variant="title"
                 color="inherit"
                 className={classes.grow}
             >
-                Flava
+                <UnstyledLink to="/">Flava</UnstyledLink>
             </Typography>
+
             <LoginButtonContainer />
         </Toolbar>
     </AppBar>
