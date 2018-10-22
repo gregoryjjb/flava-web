@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core";
 import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import { Line } from "react-chartjs-2";
+import Input from "../components/Input";
 
 const data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -43,12 +44,10 @@ const DashboardPage = ({ classes, store }) => {
     return (
         <Gutters>
             <div>
-                <p>
-                    This is {user.firstname}
-                    's dashboard!
-                </p>
+                <Input />
                 <Line data={data} />
             </div>
+            <p>Weight: {Input}</p>
         </Gutters>
     );
 };
