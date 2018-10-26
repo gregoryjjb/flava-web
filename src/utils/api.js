@@ -10,4 +10,7 @@ api.resumeSession = sessionKey => {
 
 api.logout = () => axios.get("/api/account/logout");
 
+api.setUserInfo = ({ age, height, weight }) =>
+    axios.post("/api/setUserInfo", { age, weight, height });
+
 export default api;

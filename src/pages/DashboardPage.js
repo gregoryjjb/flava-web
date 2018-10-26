@@ -3,7 +3,8 @@ import { withStyles } from "@material-ui/core";
 import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import { Line } from "react-chartjs-2";
-import Input from "../components/Input";
+import CalibrationCard from "../components/CalibrationCard";
+import GoalCard from "../components/GoalCard";
 
 const data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -40,15 +41,18 @@ const DashboardPage = ({ classes, store }) => {
     let user = store.get("user");
 
     if (!user) return <p>You aren't logged in :(</p>;
-
     return (
-        <Gutters>
-            <div>
-                <Input />
+        <div>
+            <Gutters top>
+                <GoalCard />
+            </Gutters>
+            <Gutters top bottom>
+                {/* Conditional: if the user has a plan then don't display the input */}
+                <CalibrationCard />
                 <Line data={data} />
-            </div>
-            <p>Weight: {Input}</p>
-        </Gutters>
+                <p>Weight: {store.get("weight")}</p>
+            </Gutters>
+        </div>
     );
 };
 
