@@ -6,11 +6,13 @@ import {
     InputAdornment,
     TextField,
     Button,
-} from "@material-ui/core/styles";
+    Card,
+    CardContent,
+    CardActions,
+} from "@material-ui/core";
 import NumberFormat from "react-number-format";
 import { withStore } from "../utils/store";
 import api from "../utils/api";
-import { Card, CardContent } from "@material-ui/core";
 
 const styles = theme => ({
     root: {
@@ -66,13 +68,7 @@ class FeatureForm extends React.Component {
         event.preventDefault();
         //Send to the server after validating data
         alert("Weight: " + this.state.weight);
-        this.props.store.set("input")(this.state);
-        /**
-        api.setUserInfo({
-
-        })
-        .then()
-        */
+        this.props.store.set("weight")(1234);
     };
 
     render() {
@@ -81,8 +77,8 @@ class FeatureForm extends React.Component {
 
         return (
             <Card>
-                <CardContent>
-                    <form className={classes.root} onSubmit={this.handleSubmit}>
+                <form className={classes.root} onSubmit={this.handleSubmit}>
+                    <CardContent>
                         <TextField
                             id="age-field"
                             className={classNames(
@@ -163,6 +159,8 @@ class FeatureForm extends React.Component {
                             }}
                             InputLabelProps={{ shrink: true }}
                         />
+                    </CardContent>
+                    <CardActions>
                         <Button
                             type="submit"
                             color="primary"
@@ -170,8 +168,8 @@ class FeatureForm extends React.Component {
                         >
                             submit
                         </Button>
-                    </form>
-                </CardContent>
+                    </CardActions>
+                </form>
             </Card>
         );
     }
