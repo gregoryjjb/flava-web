@@ -1,7 +1,5 @@
 import React from "react";
 
-import { withStyles } from "@material-ui/core";
-
 const Gutters = ({ top, bottom, children }) => (
     <div
         style={{

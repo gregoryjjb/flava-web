@@ -47,8 +47,7 @@ const DashboardPage = ({ classes, store }) => {
                 <GoalCard />
             </Gutters>
             <Gutters top bottom>
-                {/* Conditional: if the user has a plan then don't display the input */}
-                <CalibrationCard />
+                {user.age == undefined && <CalibrationCard />}
                 <Line data={data} />
                 <p>Weight: {store.get("weight")}</p>
             </Gutters>

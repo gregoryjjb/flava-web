@@ -79,13 +79,12 @@ class FeatureForm extends React.Component {
         }).then(res => {
             let newUser = res.data;
 
-            this.store.set("user")(newUser);
+            this.props.store.set("user")(newUser);
         });
     };
 
     render() {
         const { classes } = this.props;
-        const store = this.props.store;
 
         return (
             <Card>
