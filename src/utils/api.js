@@ -10,7 +10,13 @@ api.resumeSession = sessionKey => {
 
 api.logout = () => axios.get("/api/account/logout");
 
-api.setUserInfo = ({ age, height, weight }) =>
-    axios.post("/api/setUserInfo", { age, weight, height });
+api.setUserInfo = ({ age, height, weight, longestDistance, bestMileTime }) =>
+    axios.post("/api/user/info", {
+        age,
+        weight,
+        height,
+        longestDistance,
+        bestMileTime,
+    });
 
 export default api;

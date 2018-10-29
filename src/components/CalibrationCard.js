@@ -67,8 +67,20 @@ class FeatureForm extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         //Send to the server after validating data
-        alert("Weight: " + this.state.weight);
-        this.props.store.set("weight")(1234);
+        //alert("Weight: " + this.state.weight);
+        //this.props.store.set("weight")(1234);
+
+        api.setUserInfo({
+            age: this.state.age,
+            height: this.state.height,
+            weight: this.state.weight,
+            bestMileTime: this.state.bestMile,
+            longestDistance: this.state.longestDistance,
+        }).then(res => {
+            let newUser = res.data;
+
+            this.store.set("user")(newUser);
+        });
     };
 
     render() {
