@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { Button, CircularProgress } from "@material-ui/core";
@@ -28,7 +29,7 @@ class LoginButtonContainer extends Component {
 
     onSuccess = response => {
         const token = response.tokenId;
-        const store = this.props.store;
+        const { store, history } = this.props;
 
         store.set("session.fetching")(true);
 
@@ -44,6 +45,7 @@ class LoginButtonContainer extends Component {
             .catch(err => console.error(err))
             .then(() => {
                 store.set("session.fetching")(false);
+                history.push("/dashboard");
             });
     };
 
@@ -52,7 +54,7 @@ class LoginButtonContainer extends Component {
     };
 
     onLogoutClick = () => {
-        const { store } = this.props;
+        const { store, history } = this.props;
 
         store.set("session.fetching")(true);
 
@@ -66,6 +68,7 @@ class LoginButtonContainer extends Component {
             .catch(e => console.error(e))
             .then(() => {
                 store.set("session.fetching")(false);
+                history.push("/");
             });
     };
 
@@ -85,7 +88,7 @@ class LoginButtonContainer extends Component {
             );
         } else {
             return (
-                <Button variant="raised" onClick={this.onLogoutClick}>
+                <Button variant="contained" onClick={this.onLogoutClick}>
                     Log out
                 </Button>
             );
@@ -93,4 +96,4 @@ class LoginButtonContainer extends Component {
     }
 }
 
-export default withStore(LoginButtonContainer);
+export default withStore(withRouter(LoginButtonContainer));

@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import { withStyles, Typography } from "@material-ui/core";
 import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
@@ -40,17 +41,20 @@ const styles = theme => ({
 const DashboardPage = ({ classes, store }) => {
     let user = store.get("user");
 
-    if (!user) return <p>You aren't logged in :(</p>;
+    if (!user)
+        return (
+            <Gutters top bottom>
+                <Typography variant="h4">You aren't logged in</Typography>
+            </Gutters>
+        );
     return (
         <div>
             <Gutters top>
                 <Typography variant="h4" gutterBottom>
                     Welcome to your dashboard, {user.firstname}
                 </Typography>
-                <GoalCard />
-            </Gutters>
-            <Gutters top bottom>
                 <CalibrationContainer />
+                <GoalCard />
                 <Line data={data} />
                 <p>Weight: {store.get("weight")}</p>
             </Gutters>

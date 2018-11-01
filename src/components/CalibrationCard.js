@@ -19,6 +19,9 @@ const styles = theme => ({
         display: "flex",
         flexWrap: "wrap",
     },
+    card: {
+        margin: "16px 0",
+    },
     margin: {
         margin: theme.spacing.unit,
     },
@@ -78,6 +81,26 @@ class CalibrationCard extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+
+        let age = Number(this.state.age);
+        let height = Number(this.state.height);
+        let weight = Number(this.state.weight);
+        let longestDistance = Number(this.state.longestDistance);
+        let bestMileTime = Number(this.state.bestMileTime);
+
+        let errors = [];
+        if (!age || age <= 0) errors.push("Age must be greater than 0");
+        if (!height && height <= 0)
+            errors.push("Height must be greater than zero");
+        if (!weight && weight <= 0)
+            errors.push("Weight must be greater than zero");
+        if (!longestDistance && longestDistance <= 0)
+            errors.push("Longest Distance must be greater than zero");
+        if (!bestMileTime && bestMileTime <= 0)
+            errors.push("Best Mile Time must be greater than zero");
+
+        if (errors.length > 0) window.alert(errors.join("; "));
+
         this.props.onSubmit({ ...this.state });
     };
 
@@ -85,7 +108,7 @@ class CalibrationCard extends React.Component {
         let c = classes;
         let name = camelize(label);
         let adornment = !units ? null : (
-            <InputAdornment position="end">in</InputAdornment>
+            <InputAdornment position="end">{units}</InputAdornment>
         );
 
         return (
@@ -107,7 +130,7 @@ class CalibrationCard extends React.Component {
         const { classes } = this.props;
 
         return (
-            <Card>
+            <Card className={classes.card}>
                 <form className={classes.root} onSubmit={this.handleSubmit}>
                     <CardContent>
                         <Typography variant="h5" gutterBottom>
