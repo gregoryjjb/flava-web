@@ -9,6 +9,8 @@ import {
     Card,
     CardContent,
     CardActions,
+    Grid,
+    Typography,
 } from "@material-ui/core";
 import NumberFormat from "react-number-format";
 
@@ -22,6 +24,10 @@ const styles = theme => ({
     },
     textField: {
         flexBasis: 200,
+        width: "100%",
+    },
+    grid: {
+        marginTop: 16,
     },
 });
 
@@ -83,15 +89,17 @@ class CalibrationCard extends React.Component {
         );
 
         return (
-            <TextField
-                name={name}
-                className={classNames(c.margin, c.textField)}
-                variant="outlined"
-                label={label}
-                value={this.state[name]}
-                onChange={this.handleChange(name)}
-                InputProps={{ endAdornment: adornment }}
-            />
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                <TextField
+                    name={name}
+                    className={classNames(c.textField)}
+                    variant="outlined"
+                    label={label}
+                    value={this.state[name]}
+                    onChange={this.handleChange(name)}
+                    InputProps={{ endAdornment: adornment }}
+                />
+            </Grid>
         );
     };
 
@@ -102,25 +110,32 @@ class CalibrationCard extends React.Component {
             <Card>
                 <form className={classes.root} onSubmit={this.handleSubmit}>
                     <CardContent>
-                        {this.makeField("Age", classes)}
-                        {this.makeField("Height", classes, "in")}
-                        {this.makeField("Weight", classes, "lbs")}
-                        {this.makeField("Longest Distance", classes, "mi")}
-                        <TextField
-                            id="bestMileTime-field"
-                            className={classNames(
-                                classes.margin,
-                                classes.textField
-                            )}
-                            variant="outlined"
-                            label="Best Mile Time"
-                            value={this.state.bestMileTime.minutes}
-                            onChange={this.handleChange("bestMileTime")}
-                            InputProps={{
-                                inputComponent: NumberFormatCustom,
-                            }}
-                            InputLabelProps={{ shrink: true }}
-                        />
+                        <Typography variant="h5" gutterBottom>
+                            Looks like you haven't been here before!
+                        </Typography>
+                        <Typography variant="subtitle1" gutterBottom>
+                            Please fill out your information.
+                        </Typography>
+                        <Grid container spacing={16} className={classes.grid}>
+                            {this.makeField("Age", classes)}
+                            {this.makeField("Height", classes, "in")}
+                            {this.makeField("Weight", classes, "lbs")}
+                            {this.makeField("Longest Distance", classes, "mi")}
+                            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                                <TextField
+                                    id="bestMileTime-field"
+                                    className={classNames(classes.textField)}
+                                    variant="outlined"
+                                    label="Best Mile Time"
+                                    value={this.state.bestMileTime.minutes}
+                                    onChange={this.handleChange("bestMileTime")}
+                                    InputProps={{
+                                        inputComponent: NumberFormatCustom,
+                                    }}
+                                    InputLabelProps={{ shrink: true }}
+                                />
+                            </Grid>
+                        </Grid>
                     </CardContent>
                     <CardActions>
                         <Button
