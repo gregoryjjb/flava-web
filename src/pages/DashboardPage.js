@@ -1,9 +1,8 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography } from "@material-ui/core";
 import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import { Line } from "react-chartjs-2";
-import CalibrationCard from "../components/CalibrationCard";
 import GoalCard from "../components/GoalCard";
 import CalibrationContainer from "../containers/CalibrationContainer";
 
@@ -45,6 +44,9 @@ const DashboardPage = ({ classes, store }) => {
     return (
         <div>
             <Gutters top>
+                <Typography variant="h4" gutterBottom>
+                    Welcome to your dashboard, {user.firstname}
+                </Typography>
                 <GoalCard />
             </Gutters>
             <Gutters top bottom>
