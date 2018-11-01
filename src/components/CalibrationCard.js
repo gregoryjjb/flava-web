@@ -11,8 +11,6 @@ import {
     CardActions,
 } from "@material-ui/core";
 import NumberFormat from "react-number-format";
-import { withStore } from "../utils/store";
-import api from "../utils/api";
 
 const styles = theme => ({
     root: {
@@ -27,7 +25,7 @@ const styles = theme => ({
     },
 });
 
-function NumberFormatCustom(props) {
+const NumberFormatCustom = props => {
     const { inputRef, onChange, ...other } = props;
 
     return (
@@ -44,19 +42,27 @@ function NumberFormatCustom(props) {
             format="0#:##"
         />
     );
-}
+};
 
 NumberFormatCustom.propTypes = {
     inputRef: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
 };
 
-class FeatureForm extends React.Component {
+function camelize(str) {
+    return str
+        .replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+        })
+        .replace(/\s+/g, "");
+}
+
+class CalibrationCard extends React.Component {
     state = {
         age: "",
         height: "",
         weight: "",
-        bestMile: "",
+        bestMileTime: "",
         longestDistance: "",
     };
 
@@ -66,21 +72,27 @@ class FeatureForm extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        //Send to the server after validating data
-        //alert("Weight: " + this.state.weight);
-        //this.props.store.set("weight")(1234);
+        this.props.onSubmit({ ...this.state });
+    };
 
-        api.setUserInfo({
-            age: this.state.age,
-            height: this.state.height,
-            weight: this.state.weight,
-            bestMileTime: this.state.bestMile,
-            longestDistance: this.state.longestDistance,
-        }).then(res => {
-            let newUser = res.data;
+    makeField = (label, classes, units) => {
+        let c = classes;
+        let name = camelize(label);
+        let adornment = !units ? null : (
+            <InputAdornment position="end">in</InputAdornment>
+        );
 
-            this.props.store.set("user")(newUser);
-        });
+        return (
+            <TextField
+                name={name}
+                className={classNames(c.margin, c.textField)}
+                variant="outlined"
+                label={label}
+                value={this.state[name]}
+                onChange={this.handleChange(name)}
+                InputProps={{ endAdornment: adornment }}
+            />
+        );
     };
 
     render() {
@@ -90,81 +102,20 @@ class FeatureForm extends React.Component {
             <Card>
                 <form className={classes.root} onSubmit={this.handleSubmit}>
                     <CardContent>
+                        {this.makeField("Age", classes)}
+                        {this.makeField("Height", classes, "in")}
+                        {this.makeField("Weight", classes, "lbs")}
+                        {this.makeField("Longest Distance", classes, "mi")}
                         <TextField
-                            id="age-field"
-                            className={classNames(
-                                classes.margin,
-                                classes.textField
-                            )}
-                            variant="outlined"
-                            label="Age"
-                            value={this.state.age}
-                            onChange={this.handleChange("age")}
-                        />
-                        <TextField
-                            id="height-field"
-                            className={classNames(
-                                classes.margin,
-                                classes.textField
-                            )}
-                            variant="outlined"
-                            label="Height"
-                            value={this.state.height}
-                            onChange={this.handleChange("height")}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        in
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                        <TextField
-                            id="weight-field"
-                            className={classNames(
-                                classes.margin,
-                                classes.textField
-                            )}
-                            variant="outlined"
-                            label="Weight"
-                            value={this.state.weight}
-                            onChange={this.handleChange("weight")}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        lbs
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                        <TextField
-                            id="longestDistance-field"
-                            className={classNames(
-                                classes.margin,
-                                classes.textField
-                            )}
-                            variant="outlined"
-                            label="Longest Distance"
-                            value={this.state.longestDistance}
-                            onChange={this.handleChange("longestDistance")}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        mi
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                        <TextField
-                            id="bestMile-field"
+                            id="bestMileTime-field"
                             className={classNames(
                                 classes.margin,
                                 classes.textField
                             )}
                             variant="outlined"
                             label="Best Mile Time"
-                            value={this.state.bestMile.minutes}
-                            onChange={this.handleChange("bestMile")}
+                            value={this.state.bestMileTime.minutes}
+                            onChange={this.handleChange("bestMileTime")}
                             InputProps={{
                                 inputComponent: NumberFormatCustom,
                             }}
@@ -186,8 +137,9 @@ class FeatureForm extends React.Component {
     }
 }
 
-FeatureForm.propTypes = {
+CalibrationCard.propTypes = {
     classes: PropTypes.object.isRequired,
+    onSubmit: PropTypes.func,
 };
 
-export default withStore(withStyles(styles)(FeatureForm));
+export default withStyles(styles)(CalibrationCard);

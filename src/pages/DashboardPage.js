@@ -5,6 +5,7 @@ import { withStore } from "../utils/store";
 import { Line } from "react-chartjs-2";
 import CalibrationCard from "../components/CalibrationCard";
 import GoalCard from "../components/GoalCard";
+import CalibrationContainer from "../containers/CalibrationContainer";
 
 const data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -47,7 +48,7 @@ const DashboardPage = ({ classes, store }) => {
                 <GoalCard />
             </Gutters>
             <Gutters top bottom>
-                {user.age == undefined && <CalibrationCard />}
+                <CalibrationContainer />
                 <Line data={data} />
                 <p>Weight: {store.get("weight")}</p>
             </Gutters>
