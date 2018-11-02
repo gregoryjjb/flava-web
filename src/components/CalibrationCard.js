@@ -1,17 +1,6 @@
 import React from "react";
-import classNames from "classnames";
 import PropTypes from "prop-types";
-import {
-    withStyles,
-    InputAdornment,
-    TextField,
-    Button,
-    Card,
-    CardContent,
-    CardActions,
-    Grid,
-    Typography,
-} from "@material-ui/core";
+import { withStyles, Card, CardContent, Typography } from "@material-ui/core";
 import NumberFormat from "react-number-format";
 
 import Form from "./Form";
@@ -24,21 +13,10 @@ const styles = theme => ({
     card: {
         margin: "16px 0",
     },
-    margin: {
-        margin: theme.spacing.unit,
-    },
-    textField: {
-        flexBasis: 200,
-        width: "100%",
-    },
-    grid: {
-        marginTop: 16,
-    },
 });
 
 const NumberFormatCustom = props => {
     const { inputRef, onChange, ...other } = props;
-
     return (
         <NumberFormat
             {...other}
@@ -46,7 +24,8 @@ const NumberFormatCustom = props => {
             onValueChange={values => {
                 onChange({
                     target: {
-                        value: values.value,
+                        value: values.formattedValue,
+                        name: "bestMileTime",
                     },
                 });
             }}
@@ -60,14 +39,6 @@ NumberFormatCustom.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
-function camelize(str) {
-    return str
-        .replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-            return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-        })
-        .replace(/\s+/g, "");
-}
-
 class CalibrationCard extends React.Component {
     state = {
         age: "",
@@ -77,57 +48,9 @@ class CalibrationCard extends React.Component {
         longestDistance: "",
     };
 
-    handleChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
-    };
-
     handleSubmit = results => {
-        /*event.preventDefault();
-
-        let age = Number(this.state.age);
-        let height = Number(this.state.height);
-        let weight = Number(this.state.weight);
-        let longestDistance = Number(this.state.longestDistance);
-        let bestMileTime = Number(this.state.bestMileTime);
-
-        let errors = [];
-        if (!age || age <= 0) errors.push("Age must be greater than 0");
-        if (!height && height <= 0)
-            errors.push("Height must be greater than zero");
-        if (!weight && weight <= 0)
-            errors.push("Weight must be greater than zero");
-        if (!longestDistance && longestDistance <= 0)
-            errors.push("Longest Distance must be greater than zero");
-        if (!bestMileTime && bestMileTime <= 0)
-            errors.push("Best Mile Time must be greater than zero");
-
-        if (errors.length > 0) window.alert(errors.join("; "));*/
-
         console.log(results);
-
-        //this.props.onSubmit({ ...this.state });
-    };
-
-    makeField = (label, classes, units) => {
-        let c = classes;
-        let name = camelize(label);
-        let adornment = !units ? null : (
-            <InputAdornment position="end">{units}</InputAdornment>
-        );
-
-        return (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                <TextField
-                    name={name}
-                    className={classNames(c.textField)}
-                    variant="outlined"
-                    label={label}
-                    value={this.state[name]}
-                    onChange={this.handleChange(name)}
-                    InputProps={{ endAdornment: adornment }}
-                />
-            </Grid>
-        );
+        this.props.onSubmit({ ...results });
     };
 
     render() {
@@ -173,7 +96,7 @@ class CalibrationCard extends React.Component {
                                 label: "Weight",
                                 type: "number",
                                 units: "lb",
-                                require: true,
+                                required: true,
                                 validation: w =>
                                     w > 0 ? "" : "Invalid weight",
                             },
@@ -182,42 +105,25 @@ class CalibrationCard extends React.Component {
                                 label: "Longest Distance",
                                 type: "number",
                                 units: "mi",
-                                require: true,
+                                required: true,
                                 validation: d =>
                                     d > 0 ? "" : "Invalid distance",
                             },
+                            {
+                                name: "bestMileTime",
+                                label: "Best Mile Time",
+                                type: "text",
+                                required: true,
+                                validation: function(s) {
+                                    return s.trim().split(":")[1].length === 2
+                                        ? ""
+                                        : "Invalid time";
+                                },
+                                component: NumberFormatCustom,
+                            },
                         ]}
                     />
-                    {/*<Grid container spacing={16} className={classes.grid}>
-                            {this.makeField("Age", classes)}
-                            {this.makeField("Height", classes, "in")}
-                            {this.makeField("Weight", classes, "lbs")}
-                            {this.makeField("Longest Distance", classes, "mi")}
-                            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                                <TextField
-                                    id="bestMileTime-field"
-                                    className={classNames(classes.textField)}
-                                    variant="outlined"
-                                    label="Best Mile Time"
-                                    value={this.state.bestMileTime.minutes}
-                                    onChange={this.handleChange("bestMileTime")}
-                                    InputProps={{
-                                        inputComponent: NumberFormatCustom,
-                                    }}
-                                    InputLabelProps={{ shrink: true }}
-                                />
-                                </Grid>
-                        </Grid>*/}
                 </CardContent>
-                <CardActions>
-                    <Button
-                        type="submit"
-                        color="primary"
-                        className={classes.button}
-                    >
-                        submit
-                    </Button>
-                </CardActions>
             </Card>
         );
     }

@@ -6,6 +6,7 @@ import {
     Select,
     OutlinedInput,
     MenuItem,
+    FormHelperText,
 } from "@material-ui/core";
 
 class OutlinedSelect extends React.Component {
@@ -24,7 +25,16 @@ class OutlinedSelect extends React.Component {
     }
 
     render() {
-        const { className, name, label, options, value, onChange } = this.props;
+        const {
+            className,
+            name,
+            label,
+            options,
+            value,
+            valid,
+            onChange,
+            onBlur,
+        } = this.props;
 
         return (
             <FormControl variant="outlined" className={className}>
@@ -39,6 +49,8 @@ class OutlinedSelect extends React.Component {
                 <Select
                     value={value}
                     onChange={onChange}
+                    onBlur={onBlur}
+                    error={valid !== ""}
                     input={
                         <OutlinedInput
                             name={name}
@@ -56,6 +68,11 @@ class OutlinedSelect extends React.Component {
                         </MenuItem>
                     ))}
                 </Select>
+                {valid !== "" && (
+                    <FormHelperText style={{ color: "#f44336" }}>
+                        {valid}
+                    </FormHelperText>
+                )}
             </FormControl>
         );
     }

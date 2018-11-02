@@ -23,7 +23,9 @@ const Input = ({ classes, field, value, valid, onChange, onBlur }) => {
                 label={field.label}
                 options={field.options}
                 value={value}
+                valid={valid}
                 onChange={onChange}
+                onBlur={onBlur}
             />
         );
     } else {
@@ -37,9 +39,15 @@ const Input = ({ classes, field, value, valid, onChange, onBlur }) => {
                 type={field.type}
                 variant="outlined"
                 value={value}
-                onChange={onChange}
+                onChange={e => {
+                    console.log(e);
+                    onChange(e);
+                }}
                 onBlur={onBlur}
-                InputProps={{ endAdornment }}
+                InputProps={{
+                    endAdornment,
+                    inputComponent: field.component,
+                }}
             />
         );
     }

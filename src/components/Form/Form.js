@@ -5,7 +5,8 @@ import { withStyles, Button, Grid } from "@material-ui/core";
 
 const styles = theme => ({
     grid: {
-        margin: "16px 0",
+        marginTop: 16,
+        marginBottom: 16,
     },
 });
 
@@ -98,7 +99,7 @@ class Form extends React.Component {
                 },
             },
             () => {
-                if (this.state.validationResults[name] === false) {
+                if (this.state.validationResults[name] !== "") {
                     this.validateOne(name);
                 }
             }
@@ -118,7 +119,7 @@ class Form extends React.Component {
         const values = { ...this.state.values };
         const passed = this.validateAll();
 
-        if (passed) this.props.onSubmit(this.state.values);
+        if (passed) this.props.onSubmit(values);
     };
 
     render() {
@@ -147,7 +148,14 @@ class Form extends React.Component {
                         </Grid>
                     ))}
                 </Grid>
-                <Button onClick={this.handleSubmit}>Submit</Button>
+                <Button
+                    variant="outlined"
+                    color="primary"
+                    size="large"
+                    onClick={this.handleSubmit}
+                >
+                    Submit
+                </Button>
             </form>
         );
     }
