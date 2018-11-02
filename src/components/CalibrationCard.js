@@ -14,6 +14,8 @@ import {
 } from "@material-ui/core";
 import NumberFormat from "react-number-format";
 
+import Form from "./Form";
+
 const styles = theme => ({
     root: {
         display: "flex",
@@ -79,8 +81,8 @@ class CalibrationCard extends React.Component {
         this.setState({ [prop]: event.target.value });
     };
 
-    handleSubmit = event => {
-        event.preventDefault();
+    handleSubmit = results => {
+        /*event.preventDefault();
 
         let age = Number(this.state.age);
         let height = Number(this.state.height);
@@ -99,9 +101,11 @@ class CalibrationCard extends React.Component {
         if (!bestMileTime && bestMileTime <= 0)
             errors.push("Best Mile Time must be greater than zero");
 
-        if (errors.length > 0) window.alert(errors.join("; "));
+        if (errors.length > 0) window.alert(errors.join("; "));*/
 
-        this.props.onSubmit({ ...this.state });
+        console.log(results);
+
+        //this.props.onSubmit({ ...this.state });
     };
 
     makeField = (label, classes, units) => {
@@ -131,15 +135,60 @@ class CalibrationCard extends React.Component {
 
         return (
             <Card className={classes.card}>
-                <form className={classes.root} onSubmit={this.handleSubmit}>
-                    <CardContent>
-                        <Typography variant="h5" gutterBottom>
-                            Looks like you haven't been here before!
-                        </Typography>
-                        <Typography variant="subtitle1" gutterBottom>
-                            Please fill out your information.
-                        </Typography>
-                        <Grid container spacing={16} className={classes.grid}>
+                <CardContent>
+                    <Typography variant="h5" gutterBottom>
+                        Looks like you haven't been here before!
+                    </Typography>
+                    <Typography variant="subtitle1" gutterBottom>
+                        Please fill out your information.
+                    </Typography>
+                    <Form
+                        onSubmit={this.handleSubmit}
+                        fields={[
+                            {
+                                name: "age",
+                                label: "Age",
+                                type: "number",
+                                units: "yrs",
+                                required: true,
+                            },
+                            {
+                                name: "gender",
+                                label: "Gender",
+                                type: "select",
+                                options: { m: "Male", f: "Female" },
+                                required: true,
+                            },
+                            {
+                                name: "height",
+                                label: "Height",
+                                type: "number",
+                                units: "in",
+                                required: true,
+                                validation: h =>
+                                    h > 0 ? "" : "Invalid height",
+                            },
+                            {
+                                name: "weight",
+                                label: "Weight",
+                                type: "number",
+                                units: "lb",
+                                require: true,
+                                validation: w =>
+                                    w > 0 ? "" : "Invalid weight",
+                            },
+                            {
+                                name: "longestDistance",
+                                label: "Longest Distance",
+                                type: "number",
+                                units: "mi",
+                                require: true,
+                                validation: d =>
+                                    d > 0 ? "" : "Invalid distance",
+                            },
+                        ]}
+                    />
+                    {/*<Grid container spacing={16} className={classes.grid}>
                             {this.makeField("Age", classes)}
                             {this.makeField("Height", classes, "in")}
                             {this.makeField("Weight", classes, "lbs")}
@@ -157,19 +206,18 @@ class CalibrationCard extends React.Component {
                                     }}
                                     InputLabelProps={{ shrink: true }}
                                 />
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-                    <CardActions>
-                        <Button
-                            type="submit"
-                            color="primary"
-                            className={classes.button}
-                        >
-                            submit
-                        </Button>
-                    </CardActions>
-                </form>
+                                </Grid>
+                        </Grid>*/}
+                </CardContent>
+                <CardActions>
+                    <Button
+                        type="submit"
+                        color="primary"
+                        className={classes.button}
+                    >
+                        submit
+                    </Button>
+                </CardActions>
             </Card>
         );
     }
