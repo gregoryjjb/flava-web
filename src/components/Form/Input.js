@@ -11,6 +11,8 @@ const styles = theme => ({
 const Input = ({ classes, field, value, valid, onChange, onBlur }) => {
     let input;
 
+    let label = field.label + (field.required ? "*" : "");
+
     let endAdornment = !field.units ? null : (
         <InputAdornment position="end">{field.units}</InputAdornment>
     );
@@ -20,7 +22,7 @@ const Input = ({ classes, field, value, valid, onChange, onBlur }) => {
             <OutlinedSelect
                 className={classes.root}
                 name={field.name}
-                label={field.label}
+                label={label}
                 options={field.options}
                 value={value}
                 valid={valid}
@@ -32,7 +34,7 @@ const Input = ({ classes, field, value, valid, onChange, onBlur }) => {
         input = (
             <TextField
                 className={classes.root}
-                label={field.label}
+                label={label}
                 error={valid !== ""}
                 helperText={valid}
                 name={field.name}
