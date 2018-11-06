@@ -1,11 +1,10 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import { withStyles, Typography } from "@material-ui/core";
 import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import { Line } from "react-chartjs-2";
-import GoalCard from "../components/GoalCard";
 import CalibrationContainer from "../containers/CalibrationContainer";
+import GoalContainer from "../containers/GoalContainer";
 
 const data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -54,7 +53,7 @@ const DashboardPage = ({ classes, store }) => {
                     Welcome to your dashboard, {user.firstname}
                 </Typography>
                 <CalibrationContainer />
-                <GoalCard />
+                <GoalContainer />
                 <Line data={data} />
                 <p>Weight: {store.get("weight")}</p>
             </Gutters>

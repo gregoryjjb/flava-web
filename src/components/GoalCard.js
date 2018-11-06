@@ -8,6 +8,9 @@ const styles = theme => ({
         marginLeft: "auto",
         marginRight: "auto",
     },
+    goal: {
+        marginTop: 16,
+    },
 });
 
 class GoalCard extends React.Component {
@@ -16,7 +19,7 @@ class GoalCard extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, goal, onSubmit } = this.props;
         return (
             <Card className={classes.card}>
                 <CardContent>
@@ -28,14 +31,14 @@ class GoalCard extends React.Component {
                         sm={6}
                         md={6}
                         lg={6}
-                        onSubmit={this.handleSubmit}
+                        onSubmit={onSubmit || undefined}
                         fields={[
                             {
                                 name: "current",
                                 label: "Current",
                                 type: "number",
                                 units: "mi",
-                                required: true,
+                                required: false,
                             },
                             {
                                 name: "goal",
@@ -46,6 +49,13 @@ class GoalCard extends React.Component {
                             },
                         ]}
                     />
+                    {goal && (
+                        <div className={classes.goal}>
+                            <Typography variant="subtitle1">
+                                You need to be running {goal} miles a week.
+                            </Typography>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
         );

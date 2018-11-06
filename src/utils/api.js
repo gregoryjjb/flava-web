@@ -19,4 +19,6 @@ api.setUserInfo = ({ age, height, weight, longestDistance, bestMileTime }) =>
         bestMileTime,
     });
 
+api.getPlan = goal => axios.get(`/api/user/plan/${goal}`);
+
 export default api;
