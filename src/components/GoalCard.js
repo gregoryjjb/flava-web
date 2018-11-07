@@ -38,7 +38,7 @@ class GoalCard extends React.Component {
                                 label: "Current",
                                 type: "number",
                                 units: "mi",
-                                required: false,
+                                required: true,
                             },
                             {
                                 name: "goal",
@@ -46,6 +46,15 @@ class GoalCard extends React.Component {
                                 type: "number",
                                 units: "mi",
                                 required: true,
+                            },
+                            {
+                                name: "weeks",
+                                label: "Weeks",
+                                type: "number",
+                                units: "weeks",
+                                required: true,
+                                validation: w =>
+                                    w >= 1 ? "" : "At least 1 week",
                             },
                         ]}
                     />
