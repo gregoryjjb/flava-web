@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles, Typography } from "@material-ui/core";
+import { withStyles, Typography, Card, CardContent } from "@material-ui/core";
 import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import { Line } from "react-chartjs-2";
@@ -7,10 +7,18 @@ import CalibrationContainer from "../containers/CalibrationContainer";
 import GoalContainer from "../containers/GoalContainer";
 
 const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: [
+        "Week 1",
+        "Week 2",
+        "Week 3",
+        "Week 4",
+        "Week 5",
+        "Week 6",
+        "Week 7",
+    ],
     datasets: [
         {
-            label: "My First dataset",
+            label: "Miles",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -28,13 +36,16 @@ const data = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: [10, 12, 13, 15, 16, 18, 19].sort(),
         },
     ],
 };
 
 const styles = theme => ({
     root: {},
+    chart: {
+        marginTop: 16,
+    },
 });
 
 const DashboardPage = ({ classes, store }) => {
@@ -48,14 +59,20 @@ const DashboardPage = ({ classes, store }) => {
         );
     return (
         <div>
-            <Gutters top>
+            <Gutters top bottom>
                 <Typography variant="h4" gutterBottom>
                     Welcome to your dashboard, {user.firstname}
                 </Typography>
                 <CalibrationContainer />
                 <GoalContainer />
-                <Line data={data} />
-                <p>Weight: {store.get("weight")}</p>
+                <Card className={classes.chart}>
+                    <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                            Your Weekly Running Plan
+                        </Typography>
+                        <Line data={data} />
+                    </CardContent>
+                </Card>
             </Gutters>
         </div>
     );
