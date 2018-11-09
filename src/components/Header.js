@@ -1,11 +1,6 @@
 import React from "react";
-import {
-    withStyles,
-    AppBar,
-    Toolbar,
-    Typography,
-    IconButton,
-} from "@material-ui/core";
+import logo from "../img/logo-transparent.png";
+import { withStyles, AppBar, Toolbar, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import UnstyledLink from "./UnstyledLink";
@@ -24,14 +19,20 @@ const styles = theme => ({
 const name = ({ classes }) => (
     <AppBar position="sticky">
         <Toolbar>
-            <IconButton className={classes.menuButton} aria-label="Menu">
-                <MenuIcon />
-            </IconButton>
+            <div>
+                <img
+                    src={logo}
+                    alt="flava"
+                    width={44}
+                    style={{ marginRight: 8 }}
+                />
+            </div>
 
             <Typography
                 variant="title"
                 color="inherit"
                 className={classes.grow}
+                style={{ fontStyle: "italic" }}
             >
                 <UnstyledLink to="/">Flava</UnstyledLink>
             </Typography>
