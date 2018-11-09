@@ -7,6 +7,7 @@ import { Button, CircularProgress } from "@material-ui/core";
 import { withStore } from "../utils/store";
 import api from "../utils/api";
 
+import UnstyledLink from "../components/UnstyledLink";
 import LoginButton from "../components/LoginButton";
 
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -88,9 +89,20 @@ class LoginButtonContainer extends Component {
             );
         } else {
             return (
-                <Button variant="contained" onClick={this.onLogoutClick}>
-                    Log out
-                </Button>
+                <div style={{ display: "inline-block" }}>
+                    <UnstyledLink to="/dashboard">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            style={{ marginRight: 16 }}
+                        >
+                            My Dashboard
+                        </Button>
+                    </UnstyledLink>
+                    <Button variant="contained" onClick={this.onLogoutClick}>
+                        Log out
+                    </Button>
+                </div>
             );
         }
     }
