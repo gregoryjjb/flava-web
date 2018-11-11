@@ -13,17 +13,33 @@ class GoalContainer extends React.Component {
     }
 
     handleSubmit = values => {
-        api.getPlan(values.goal).then(res => {
-            let { weeklyMiles } = res.data;
-            if (!weeklyMiles) console.log("A boo-boo happened");
-            this.setState({
-                goal: weeklyMiles,
-            });
+        const { store } = this.props;
+
+        api.getPlan(values).then(res => {
+            let { weeklyTarget, weeklyPlan, dailyPlan } = res.data;
+            if (
+                !weeklyTarget ||
+                !Array.isArray(weeklyPlan) ||
+                !Array.isArray(dailyPlan)
+            ) {
+                console.log("A boo-boo happened");
+                return;
+            }
+            store.set("weeklyTarget")(weeklyTarget);
+            store.set("weeklyPlan")(weeklyPlan);
+            store.set("dailyPlan")(dailyPlan);
         });
     };
 
     render() {
-        return <GoalCard goal={this.state.goal} onSubmit={this.handleSubmit} />;
+        const { store } = this.props;
+
+        const goal = store.get("weeklyTarget");
+        const plan = store.get("weeklyPlan");
+
+        return (
+            <GoalCard goal={goal} plan={plan} onSubmit={this.handleSubmit} />
+        );
     }
 }
 

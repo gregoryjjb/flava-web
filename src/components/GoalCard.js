@@ -34,15 +34,15 @@ class GoalCard extends React.Component {
                         onSubmit={onSubmit || undefined}
                         fields={[
                             {
-                                name: "current",
-                                label: "Current",
+                                name: "currentWeekly",
+                                label: "Current Weekly",
                                 type: "number",
                                 units: "mi",
                                 required: true,
                             },
                             {
-                                name: "goal",
-                                label: "Goal",
+                                name: "goalDistance",
+                                label: "Distance Goal",
                                 type: "number",
                                 units: "mi",
                                 required: true,

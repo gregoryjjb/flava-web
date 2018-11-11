@@ -6,6 +6,10 @@ import { Line } from "react-chartjs-2";
 import CalibrationContainer from "../containers/CalibrationContainer";
 import GoalContainer from "../containers/GoalContainer";
 
+import ChartCard from "../components/ChartCard";
+import CalendarTable from "../components/CalendarTable";
+import CalendarCard from "../components/CalendarCard";
+
 const data = {
     labels: [
         "Week 1",
@@ -50,6 +54,12 @@ const styles = theme => ({
 
 const DashboardPage = ({ classes, store }) => {
     let user = store.get("user");
+    let weeklyPlan = store.get("weeklyPlan");
+    let labels = null;
+    if (Array.isArray(weeklyPlan))
+        labels = weeklyPlan.map((n, i) => "Week " + (i + 1));
+
+    let dailyPlan = store.get("dailyPlan");
 
     if (!user)
         return (
@@ -65,12 +75,16 @@ const DashboardPage = ({ classes, store }) => {
                 </Typography>
                 <CalibrationContainer />
                 <GoalContainer />
+                {dailyPlan && <CalendarCard plan={dailyPlan} />}
                 <Card className={classes.chart}>
                     <CardContent>
                         <Typography variant="h6" gutterBottom>
                             Your Weekly Running Plan
                         </Typography>
-                        <Line data={data} />
+                        {weeklyPlan &&
+                            labels && (
+                                <ChartCard labels={labels} data={weeklyPlan} />
+                            )}
                     </CardContent>
                 </Card>
             </Gutters>
