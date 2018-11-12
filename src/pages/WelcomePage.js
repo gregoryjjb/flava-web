@@ -20,6 +20,11 @@ const styles = theme => ({
         background: "rgba(0,0,0,0.6)",
         padding: 16,
     },
+    textSize: {
+        [theme.breakpoints.down("sm")]: {
+            fontSize: "5rem",
+        },
+    },
     graphRow: {
         display: "flex",
         flexDirection: "row",
@@ -57,9 +62,10 @@ const WelcomePage = ({ classes }) => (
         <div className={classes.bannerImg}>
             <div className={classes.bannerText}>
                 <Typography
-                    variant="display4"
+                    variant="h1"
                     style={{ color: "white" }}
                     align="center"
+                    className={classes.textSize}
                 >
                     Welcome to Flava
                 </Typography>

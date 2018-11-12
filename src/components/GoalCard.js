@@ -19,7 +19,7 @@ class GoalCard extends React.Component {
     };
 
     render() {
-        const { classes, goal, onSubmit } = this.props;
+        const { classes, onSubmit } = this.props;
         return (
             <Card className={classes.card}>
                 <CardContent>
@@ -32,6 +32,7 @@ class GoalCard extends React.Component {
                         md={6}
                         lg={6}
                         onSubmit={onSubmit || undefined}
+                        disabled={this.props.disabled}
                         fields={[
                             {
                                 name: "currentWeekly",
@@ -39,6 +40,8 @@ class GoalCard extends React.Component {
                                 type: "number",
                                 units: "mi",
                                 required: true,
+                                validation: mi =>
+                                    mi >= 0 ? "" : "Must be >= 0",
                             },
                             {
                                 name: "goalDistance",
@@ -46,6 +49,12 @@ class GoalCard extends React.Component {
                                 type: "number",
                                 units: "mi",
                                 required: true,
+                                validation: mi =>
+                                    mi < 0
+                                        ? "Enter a positive number"
+                                        : mi > 30
+                                            ? "Must be less than 30"
+                                            : "",
                             },
                             {
                                 name: "weeks",
@@ -54,16 +63,14 @@ class GoalCard extends React.Component {
                                 units: "weeks",
                                 required: true,
                                 validation: w =>
-                                    w >= 1 ? "" : "At least 1 week",
+                                    w >= 2 ? "" : "Must be at least 2 weeks",
                             },
                         ]}
                     />
-                    {goal && (
-                        <div className={classes.goal}>
-                            <Typography variant="subtitle1">
-                                You need to be running {goal} miles a week.
-                            </Typography>
-                        </div>
+                    {this.props.disabled && (
+                        <Typography variant="body2">
+                            Calculating your personalized plan...
+                        </Typography>
                     )}
                 </CardContent>
             </Card>

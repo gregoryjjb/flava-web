@@ -141,6 +141,7 @@ class Form extends React.Component {
                                 field={field}
                                 value={this.state.values[field.name]}
                                 valid={this.state.validationResults[field.name]}
+                                disabled={this.props.disabled}
                                 onChange={this.handleFieldChange}
                                 onBlur={this.handleFieldBlur}
                                 key={field.name}
@@ -152,6 +153,7 @@ class Form extends React.Component {
                     variant="outlined"
                     color="primary"
                     size="large"
+                    disabled={this.props.disabled}
                     onClick={this.handleSubmit}
                 >
                     Submit

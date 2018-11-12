@@ -1,7 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 
-import { withStyles } from "@material-ui/core";
+import { withStyles, Card, CardContent, Typography } from "@material-ui/core";
 
 const getChartData = (labels, data, theme) => ({
     labels: labels || [],
@@ -29,13 +29,20 @@ const getChartData = (labels, data, theme) => ({
 });
 
 const styles = theme => ({
-    root: {},
+    root: {
+        marginTop: 16,
+    },
 });
 
 const ChartCard = ({ classes, theme, labels = [], data = [] }) => (
-    <div>
-        <Line data={getChartData(labels, data, theme)} />
-    </div>
+    <Card className={classes.root}>
+        <CardContent>
+            <Typography variant="h6" gutterBottom>
+                Weekly Miles
+            </Typography>
+            <Line data={getChartData(labels, data, theme)} />
+        </CardContent>
+    </Card>
 );
 
 export default withStyles(styles, { withTheme: true })(ChartCard);

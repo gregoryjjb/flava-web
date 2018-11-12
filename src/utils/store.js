@@ -7,6 +7,7 @@ export const store = createStore({
     weeklyTarget: null,
     weeklyPlan: null,
     dailyPlan: null,
+    fetchingPlan: false,
 });
 
 export const withStore = connect(withLogger(store));
