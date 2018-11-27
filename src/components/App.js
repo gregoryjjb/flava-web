@@ -1,30 +1,25 @@
 import React from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { withStyles } from "@material-ui/core";
 
-import { withStyles, Typography } from "@material-ui/core";
-import Welcome from "./Welcome";
+import Header from "./Header";
+import WelcomePage from "../pages/WelcomePage";
+import DashboardPage from "../pages/DashboardPage";
 
 const styles = theme => ({
-    root: {
-        background: theme.palette.primary.light,
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: 0,
-    },
-    text: {
-        color: theme.palette.getContrastText(theme.palette.primary.light),
-    },
-    typography: {
-        fontFamily: "Poor Story",
-    },
+    root: {},
 });
 
 const App = ({ classes, message }) => (
-    <div>
-        <Welcome />
-    </div>
+    <BrowserRouter>
+        <div>
+            <Header />
+            <Switch>
+                <Route exact path="/" component={WelcomePage} />
+                <Route exact path="/dashboard" component={DashboardPage} />
+            </Switch>
+        </div>
+    </BrowserRouter>
 );
 
 export default withStyles(styles)(App);

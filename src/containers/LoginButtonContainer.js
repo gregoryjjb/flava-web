@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { Button, CircularProgress } from "@material-ui/core";
@@ -6,6 +7,7 @@ import { Button, CircularProgress } from "@material-ui/core";
 import { withStore } from "../utils/store";
 import api from "../utils/api";
 
+import UnstyledLink from "../components/UnstyledLink";
 import LoginButton from "../components/LoginButton";
 
 const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
@@ -28,7 +30,7 @@ class LoginButtonContainer extends Component {
 
     onSuccess = response => {
         const token = response.tokenId;
-        const store = this.props.store;
+        const { store, history } = this.props;
 
         store.set("session.fetching")(true);
 
@@ -44,6 +46,7 @@ class LoginButtonContainer extends Component {
             .catch(err => console.error(err))
             .then(() => {
                 store.set("session.fetching")(false);
+                history.push("/dashboard");
             });
     };
 
@@ -52,7 +55,7 @@ class LoginButtonContainer extends Component {
     };
 
     onLogoutClick = () => {
-        const { store } = this.props;
+        const { store, history } = this.props;
 
         store.set("session.fetching")(true);
 
@@ -66,6 +69,7 @@ class LoginButtonContainer extends Component {
             .catch(e => console.error(e))
             .then(() => {
                 store.set("session.fetching")(false);
+                history.push("/");
             });
     };
 
@@ -85,12 +89,23 @@ class LoginButtonContainer extends Component {
             );
         } else {
             return (
-                <Button variant="raised" onClick={this.onLogoutClick}>
-                    Log out
-                </Button>
+                <div style={{ display: "inline-block" }}>
+                    <UnstyledLink to="/dashboard">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            style={{ marginRight: 16 }}
+                        >
+                            My Dashboard
+                        </Button>
+                    </UnstyledLink>
+                    <Button variant="contained" onClick={this.onLogoutClick}>
+                        Log out
+                    </Button>
+                </div>
             );
         }
     }
 }
 
-export default withStore(LoginButtonContainer);
+export default withStore(withRouter(LoginButtonContainer));
