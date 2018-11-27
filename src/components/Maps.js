@@ -7,6 +7,8 @@ import {
     Marker,
 } from "react-google-maps";
 
+const apiKey = process.env.REACT_APP_MAPS_API_KEY;
+
 const styles = theme => ({
     root: {},
 });
@@ -37,7 +39,7 @@ class Maps extends React.Component {
         return (
             <MyMapComponent
                 isMarkerShown
-                googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places?key=AIzaSyBzRF3VymwDhH6hiN4exjKdcIzkXD5HEUE"
+                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
