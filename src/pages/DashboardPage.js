@@ -42,7 +42,8 @@ const DashboardPage = ({ classes, store }) => {
                 <CalibrationContainer />
                 <GoalContainer />
                 {dailyPlan && <CalendarCard plan={dailyPlan} />}
-                {dailyPlan && <MapCard />}
+                {<MapCard />}
+                {/* {dailyPlan && <MapCard />} */}
                 {weeklyPlan &&
                     labels && <ChartCard labels={labels} data={weeklyPlan} />}
                 <Typography variant="body1" className={classes.footerText}>
