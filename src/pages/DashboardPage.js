@@ -7,6 +7,7 @@ import GoalContainer from "../containers/GoalContainer";
 
 import ChartCard from "../components/ChartCard";
 import CalendarCard from "../components/CalendarCard";
+import MapCard from "../components/MapCard";
 
 const styles = theme => ({
     root: {},
@@ -41,6 +42,7 @@ const DashboardPage = ({ classes, store }) => {
                 <CalibrationContainer />
                 <GoalContainer />
                 {dailyPlan && <CalendarCard plan={dailyPlan} />}
+                {dailyPlan && <MapCard />}
                 {weeklyPlan &&
                     labels && <ChartCard labels={labels} data={weeklyPlan} />}
                 <Typography variant="body1" className={classes.footerText}>
