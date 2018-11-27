@@ -6,13 +6,14 @@ const styles = theme => ({
     root: {
         marginTop: 16,
     },
+    content: {
+        padding: 0,
+    },
 });
 
 const MapCard = ({ classes }) => (
     <Card className={classes.root}>
-        <CardContent>
-            <Maps />
-        </CardContent>
+        <Maps />
     </Card>
 );
 

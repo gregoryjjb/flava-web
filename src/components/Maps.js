@@ -52,12 +52,20 @@ const pathCoordinates = [
     { lng: -121.87326, lat: 37.32456 },
 ];
 
+const center = {
+    lng:
+        (pathCoordinates[0].lng +
+            pathCoordinates[pathCoordinates.length - 1].lng) /
+        2,
+    lat:
+        (pathCoordinates[0].lat +
+            pathCoordinates[pathCoordinates.length - 1].lat) /
+        2,
+};
+
 const MyMapComponent = withScriptjs(
     withGoogleMap(props => (
-        <GoogleMap
-            defaultZoom={15}
-            defaultCenter={{ lat: 37.335265, lng: -121.882844 }}
-        >
+        <GoogleMap defaultZoom={15} defaultCenter={center}>
             {props.isMarkerShown && (
                 <Marker position={{ lat: 37.335265, lng: -121.882844 }} />
             )}
@@ -92,7 +100,7 @@ class Maps extends React.Component {
     render() {
         return (
             <MyMapComponent
-                isMarkerShown
+                isMarkerShown={false}
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`}
                 loadingElement={<div style={{ height: `100%` }} />}
                 containerElement={<div style={{ height: `400px` }} />}
