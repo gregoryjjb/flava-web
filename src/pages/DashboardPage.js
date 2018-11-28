@@ -4,6 +4,7 @@ import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import CalibrationContainer from "../containers/CalibrationContainer";
 import GoalContainer from "../containers/GoalContainer";
+import MapContainer from "../containers/MapContainer";
 
 import ChartCard from "../components/ChartCard";
 import CalendarCard from "../components/CalendarCard";
@@ -42,8 +43,7 @@ const DashboardPage = ({ classes, store }) => {
                 <CalibrationContainer />
                 <GoalContainer />
                 {dailyPlan && <CalendarCard plan={dailyPlan} />}
-                {<MapCard />}
-                {/* {dailyPlan && <MapCard />} */}
+                {user.trails && <MapContainer />}
                 {weeklyPlan &&
                     labels && <ChartCard labels={labels} data={weeklyPlan} />}
                 <Typography variant="body1" className={classes.footerText}>

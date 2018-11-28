@@ -11,9 +11,9 @@ const styles = theme => ({
     },
 });
 
-const MapCard = ({ classes }) => (
+const MapCard = ({ classes, paths }) => (
     <Card className={classes.root}>
-        <Maps />
+        <Maps paths={paths} />
     </Card>
 );
 
