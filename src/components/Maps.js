@@ -14,10 +14,19 @@ const styles = theme => ({
     root: {},
 });
 
+const getRandomColor = () => {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
 const MyMapComponent = withScriptjs(
     withGoogleMap(props => (
         <GoogleMap
-            defaultZoom={15}
+            defaultZoom={13}
             defaultCenter={{ lng: -121.88116, lat: 37.33515 }}
         >
             {props.isMarkerShown && (
@@ -30,7 +39,7 @@ const MyMapComponent = withScriptjs(
                         path={p}
                         key={JSON.stringify(p)}
                         options={{
-                            strokeColor: "#673ab7",
+                            strokeColor: getRandomColor(),
                             strokeOpacity: 1,
                             strokeWeight: 4,
                         }}

@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles, Card, CardContent } from "@material-ui/core";
+import { withStyles, Card } from "@material-ui/core";
 import Maps from "./Maps";
 
 const styles = theme => ({
