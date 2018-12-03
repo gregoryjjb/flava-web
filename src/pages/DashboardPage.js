@@ -48,7 +48,7 @@ const DashboardPage = ({ classes, store }) => {
                     labels && <ChartCard labels={labels} data={weeklyPlan} />}
                 <Typography variant="body1" className={classes.footerText}>
                     Flava created by Greg Brisebois, Craig Huff, and Brandt
-                    Willams
+                    Willems
                 </Typography>
             </Gutters>
         </div>
