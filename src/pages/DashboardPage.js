@@ -4,9 +4,11 @@ import Gutters from "../components/Gutters";
 import { withStore } from "../utils/store";
 import CalibrationContainer from "../containers/CalibrationContainer";
 import GoalContainer from "../containers/GoalContainer";
+import MapContainer from "../containers/MapContainer";
 
 import ChartCard from "../components/ChartCard";
 import CalendarCard from "../components/CalendarCard";
+import MapCard from "../components/MapCard";
 
 const styles = theme => ({
     root: {},
@@ -41,11 +43,12 @@ const DashboardPage = ({ classes, store }) => {
                 <CalibrationContainer />
                 <GoalContainer />
                 {dailyPlan && <CalendarCard plan={dailyPlan} />}
+                {user.trails && <MapContainer />}
                 {weeklyPlan &&
                     labels && <ChartCard labels={labels} data={weeklyPlan} />}
                 <Typography variant="body1" className={classes.footerText}>
                     Flava created by Greg Brisebois, Craig Huff, and Brandt
-                    Willams
+                    Willems
                 </Typography>
             </Gutters>
         </div>

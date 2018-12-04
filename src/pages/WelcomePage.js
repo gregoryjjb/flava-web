@@ -1,11 +1,12 @@
 import React from "react";
 
-import graphImg from "../img/graph.png";
 import manRunning from "../img/running-man-sunset.jpg";
 
 import { withStyles, Typography, Button } from "@material-ui/core";
 
 import Gutters from "../components/Gutters";
+import ChartCard from "../components/ChartCard";
+import CalendarCard from "../components/CalendarCard";
 
 const styles = theme => ({
     bannerImg: {
@@ -28,6 +29,8 @@ const styles = theme => ({
     graphRow: {
         display: "flex",
         flexDirection: "row",
+        width: "40%",
+        margin: "auto",
     },
     graphCol: {
         flex: "33.3%",
@@ -57,6 +60,10 @@ const styles = theme => ({
     },
 });
 
+let exampleLabels = ["Week 1", "2", "3", "4", "5"];
+let exampleData = [11.2, 11.7, 12, 12.3, 12.5];
+let examplePlan = [[3, 2, 3, 4, 4, 4, 2], [3.5, 2, 3.5, 4, 4.5, 4, 2]];
+
 const WelcomePage = ({ classes }) => (
     <div>
         <div className={classes.bannerImg}>
@@ -79,15 +86,10 @@ const WelcomePage = ({ classes }) => (
             </Typography>
             <div className={classes.graphRow}>
                 <div className={classes.graphCol}>
-                    <img src={graphImg} alt="" className={classes.graphImg} />
-                </div>
-                <div className={classes.graphCol}>
-                    <img src={graphImg} alt="" className={classes.graphImg} />
-                </div>
-                <div className={classes.graphCol}>
-                    <img src={graphImg} alt="" className={classes.graphImg} />
+                    <ChartCard labels={exampleLabels} data={exampleData} />
                 </div>
             </div>
+            <CalendarCard plan={examplePlan} />
         </Gutters>
         {/* Bottom Half (Dark BG) */}
         <div className={classes.footer}>
